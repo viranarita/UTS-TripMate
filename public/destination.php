@@ -17,14 +17,14 @@
                 <nav class="hidden lg:flex space-x-8">
                     <a href="index.php" class="text-base text-dark hover:text-primary">Home</a>
                     <a href="#destination" class="text-base text-dark hover:text-primary">Destination</a>
-                    <a href="#planning" class="text-base text-dark hover:text-primary">Planning</a>
+                    <a href="planning.php" class="text-base text-dark hover:text-primary">Planning</a>
                 </nav>
             </div>
 
             <!-- Tombol Sign In & Register (Hanya di Desktop) -->
             <div class="hidden lg:flex items-center space-x-4">
-                <a href="#signin" class="text-base text-dark hover:text-primary">Sign In</a>
-                <a href="#signup" class="text-base text-dark py-2 mx-8 lg:mx-4 lg:px-4 lg:py-2 lg:border lg:border-primary lg:rounded-full lg:hover:bg-primary lg:hover:text-white lg:transition lg:duration-300">Create Account</a>
+                <a href="login.php?page=login" class="text-base text-dark hover:text-primary">Sign In</a>
+                <a href="login.php?page=register" class="text-base text-dark py-2 mx-8 lg:mx-4 lg:px-4 lg:py-2 lg:border lg:border-primary lg:rounded-full lg:hover:bg-primary lg:hover:text-white lg:transition lg:duration-300">Create Account</a>
             </div>
 
             <!-- Tombol Hamburger (Hanya di Mobile) -->
@@ -40,9 +40,9 @@
             <ul class="block text-left space-y-4 p-5">
                 <li><a href="index.php" class="text-base text-dark hover:text-primary block">Home</a></li>
                 <li><a href="#destination" class="text-base text-dark hover:text-primary block">Destination</a></li>
-                <li><a href="#planning" class="text-base text-dark hover:text-primary block">Planning</a></li>
-                <li><a href="#signin" class="text-base text-dark hover:text-primary block">Sign In</a></li>
-                <li><a href="#signup" class="text-base text-dark hover:text-primary block">Create Account</a></li>
+                <li><a href="planning.php" class="text-base text-dark hover:text-primary block">Planning</a></li>
+                <li><a href="login.php" class="text-base text-dark hover:text-primary block">Sign In</a></li>
+                <li><a href="login.php?page=register" class="text-base text-dark hover:text-primary block">Create Account</a></li>
             </ul>
         </nav>
     </header>

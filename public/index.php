@@ -19,7 +19,7 @@
                 <nav class="hidden lg:flex space-x-8">
                     <a href="#home" class="text-base text-dark hover:text-primary">Home</a>
                     <a href="destination.php" class="text-base text-dark hover:text-primary">Destination</a>
-                    <a href="#planning" class="text-base text-dark hover:text-primary">Planning</a>
+                    <a href="planning.php" class="text-base text-dark hover:text-primary">Planning</a>
                 </nav>
             </div>
 
@@ -42,7 +42,7 @@
             <ul class="block text-left space-y-4 p-5">
                 <li><a href="#home" class="text-base text-dark hover:text-primary block">Home</a></li>
                 <li><a href="destination.php" class="text-base text-dark hover:text-primary block">Destination</a></li>
-                <li><a href="#planning" class="text-base text-dark hover:text-primary block">Planning</a></li>
+                <li><a href="planning.php" class="text-base text-dark hover:text-primary block">Planning</a></li>
                 <li><a href="login.php" class="text-base text-dark hover:text-primary block">Sign In</a></li>
                 <li><a href="login.php?page=register" class="text-base text-dark hover:text-primary block">Create Account</a></li>
             </ul>
@@ -115,38 +115,41 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    var ctx = document.getElementById("myChart").getContext('2d');
+    fetch("getChartData.php")
+        .then(response => response.json())
+        .then(data => {
+            var ctx = document.getElementById("myChart").getContext('2d');
 
-    var labelsDestinasi = ["Surabaya", "Jakarta", "Bandung", "Yogyakarta"];
-    var dataDestinasi = [10, 15, 7, 12];
-
-    console.log("Data Destinasi:", dataDestinasi);
-
-    var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labelsDestinasi,
-            datasets: [{
-                label: 'Destinasi Favorit',
-                data: dataDestinasi,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 206, 86, 0.7)',
-                    'rgba(75, 192, 192, 0.7)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 2
-            }]
-        }
-    });
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Destinasi Favorit',
+                        data: data.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                }
+            });
+        })
+        .catch(error => console.error('Error:', error));
 });
 </script>
+
 
     <!-- Chart Section Start -->
      
