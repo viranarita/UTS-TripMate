@@ -77,7 +77,7 @@
     <!-- Hero Section End -->
 
     <!-- About Section Start -->
-    <section id="about" class="pt-26 pb-32">
+    <section id="about" class="pt-26">
         <div class="container">
             <div class="flex flex-wrap">
                 <div class="w-full px-4 mb-10">
@@ -97,68 +97,57 @@
     <!-- About Section End -->
 
     <!-- Chart Section Start -->
-    <section id="chart" class="pt-26 pb-32">
+    <section id="chart" class="pt-12 pb-12">
         <div class="container">
-            <div class="flex flex-wrap">
-                <div class="w-full px-4 mb-10">
-                    <h2 class="font-bold text-dark text-3xl mb-5 max-w-xl">Destinasi Terfavorit TripMate</h2>
-                    <div style="width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; margin: auto;">
-                    <canvas id="myChart"></canvas>
+            <div class="flex flex-wrap justify-center">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md text-center">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Destinasi Terfavorit TripMate</h2>
+                    <div class="w-full h-80 mx-auto">
+                        <canvas id="myChart"></canvas>
                     </div>
-
-                    <?php
-                        include 'koneksi.php'; // Pastikan ada file koneksi ke database
-
-                        function getJumlahDestinasi($conn, $destination_city) {
-                            $query = mysqli_query($conn, "SELECT * FROM tb_Itinerary WHERE LOWER(destination_city) = LOWER('$destination_city')");
-                            return mysqli_num_rows($query);
-                        }
-
-                        // Mengambil jumlah data dari database
-                        $jumlah_surabaya = getJumlahDestinasi($conn, "Surabaya");
-                        $jumlah_jakarta = getJumlahDestinasi($conn, "Jakarta");
-                        $jumlah_bandung = getJumlahDestinasi($conn, "Bandung");
-                        $jumlah_yogyakarta = getJumlahDestinasi($conn, "Yogyakarta");
-                        
-                        ?>
-
-                        <script>
-                        var ctx = document.getElementById("myChart").getContext('2d');
-
-                        var myChart = new Chart(ctx, {
-                            type: 'doughnut',
-                            data: {
-                                labels: ["Surabaya", "Jakarta", "Bandung", "Yogyakarta"],
-                                datasets: [{
-                                    label: 'Destinasi Favorit',
-                                    data: [
-                                        <?php echo $jumlah_surabaya; ?>,
-                                        <?php echo $jumlah_jakarta; ?>,
-                                        <?php echo $jumlah_bandung; ?>,
-                                        <?php echo $jumlah_yogyakarta; ?>
-                                    ],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.7)',
-                                        'rgba(54, 162, 235, 0.7)',
-                                        'rgba(255, 206, 86, 0.7)',
-                                        'rgba(75, 192, 192, 0.7)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)'
-                                    ],
-                                    borderWidth: 2
-                                }]
-                            }
-                        });
-                        </script>
-
                 </div>
             </div>
         </div>
     </section>
+
+<!-- Tambahkan Library Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+    var labelsDestinasi = ["Surabaya", "Jakarta", "Bandung", "Yogyakarta"];
+    var dataDestinasi = [10, 15, 7, 12];
+
+    console.log("Data Destinasi:", dataDestinasi);
+
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labelsDestinasi,
+            datasets: [{
+                label: 'Destinasi Favorit',
+                data: dataDestinasi,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 2
+            }]
+        }
+    });
+});
+</script>
+
     <!-- Chart Section Start -->
      
     <!-- Footer Start -->
