@@ -94,6 +94,47 @@
         </div>
      </section>
     <!-- About Section End -->
+
+    <!-- Chart Section Start -->
+    <!-- <section id="chart" class="pt-26 pb-32">
+        <div class="container">
+            <div class="flex flex-wrap">
+                <div class="w-full px-4 mb-10">
+                    <h2 class="font-bold text-dark text-3xl mb-5 max-w-xl">Destinasi Terfavorit TripMate</h2>
+                    <div style="width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; margin: auto;">
+                    <canvas id="myChart"></canvas>
+                    </div>
+                    <script>
+                    var ctx = document.getElementById("myChart").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ["pemrograman", "anak", "komedi"],
+                            datasets: [{
+                                label: '# of Votes',
+                                data: [2,2,1],
+                                backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)'
+                                ],
+                                borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        }
+                    });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    <!-- About Section Start -->
      
     <!-- Footer Start -->
     <footer class="bg-dark pt-24 pb-12">
