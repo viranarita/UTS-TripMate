@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TripMate</title>
     <link rel="stylesheet" href="style.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     
@@ -96,7 +97,7 @@
     <!-- About Section End -->
 
     <!-- Chart Section Start -->
-    <!-- <section id="chart" class="pt-26 pb-32">
+    <section id="chart" class="pt-26 pb-32">
         <div class="container">
             <div class="flex flex-wrap">
                 <div class="w-full px-4 mb-10">
@@ -104,37 +105,61 @@
                     <div style="width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; margin: auto;">
                     <canvas id="myChart"></canvas>
                     </div>
-                    <script>
-                    var ctx = document.getElementById("myChart").getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: ["pemrograman", "anak", "komedi"],
-                            datasets: [{
-                                label: '# of Votes',
-                                data: [2,2,1],
-                                backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)'
-                                ],
-                                borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
+
+                    <?php
+                        include 'koneksi.php'; // Pastikan ada file koneksi ke database
+
+                        function getJumlahDestinasi($conn, $destination_city) {
+                            $query = mysqli_query($conn, "SELECT * FROM tb_Itinerary WHERE LOWER(destination_city) = LOWER('$destination_city')");
+                            return mysqli_num_rows($query);
                         }
-                    });
-                    </script>
+
+                        // Mengambil jumlah data dari database
+                        $jumlah_surabaya = getJumlahDestinasi($conn, "Surabaya");
+                        $jumlah_jakarta = getJumlahDestinasi($conn, "Jakarta");
+                        $jumlah_bandung = getJumlahDestinasi($conn, "Bandung");
+                        $jumlah_yogyakarta = getJumlahDestinasi($conn, "Yogyakarta");
+                        
+                        ?>
+
+                        <script>
+                        var ctx = document.getElementById("myChart").getContext('2d');
+
+                        var myChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ["Surabaya", "Jakarta", "Bandung", "Yogyakarta"],
+                                datasets: [{
+                                    label: 'Destinasi Favorit',
+                                    data: [
+                                        <?php echo $jumlah_surabaya; ?>,
+                                        <?php echo $jumlah_jakarta; ?>,
+                                        <?php echo $jumlah_bandung; ?>,
+                                        <?php echo $jumlah_yogyakarta; ?>
+                                    ],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.7)',
+                                        'rgba(54, 162, 235, 0.7)',
+                                        'rgba(255, 206, 86, 0.7)',
+                                        'rgba(75, 192, 192, 0.7)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)'
+                                    ],
+                                    borderWidth: 2
+                                }]
+                            }
+                        });
+                        </script>
+
                 </div>
             </div>
         </div>
-    </section> -->
-    <!-- About Section Start -->
+    </section>
+    <!-- Chart Section Start -->
      
     <!-- Footer Start -->
     <footer class="bg-dark pt-24 pb-12">
