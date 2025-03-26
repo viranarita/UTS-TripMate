@@ -1,7 +1,39 @@
 <?php
+include "config.php"; // Menggunakan konfigurasi database
 session_start();
-include 'config.php';
+
+if (isset($_SESSION["is_login"])) {
+    header("Location: dashboard.php");
+    exit();
+}
+
+if (isset($_POST['login'])) {
+    $email = $_POST['email']; 
+    $password = $_POST['password'];
+    $hash_password = hash("sha256", $password);
+
+    // Gunakan prepared statement untuk keamanan
+    $sql = $conn->prepare("SELECT * FROM tb_users WHERE email = ? AND password = ?");
+    $sql->bind_param("ss", $email, $hash_password);
+    $sql->execute();
+    $result = $sql->get_result();
+
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_assoc();
+        $_SESSION["email"] = $data["email"];
+        $_SESSION["is_login"] = true;
+
+        header("Location: dashboard.php"); // Langsung ke dashboard tanpa echo "success"
+        exit();
+    } else {
+        echo "Login gagal! Periksa email atau password.";
+    }
+
+    $sql->close();
+    $conn->close();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -22,18 +54,18 @@ include 'config.php';
     <div id="loginPage" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 class="text-2xl font-bold text-center text-red-600 mb-6">Login ke TripMate</h2>
         
-        <form id="loginForm">
+        <form id="loginForm" action="login.php" method="POST">
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="Masukkan email" required>
+                <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="Masukkan email" name="email" required>
             </div>
 
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" id="password" class="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="Masukkan password" required>
+                <input type="password" id="password" class="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="Masukkan password" name="password" required>
             </div>
 
-            <button type="submit" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 font-semibold transition duration-300">Login</button>
+            <button type="submit" name="login" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 font-semibold transition duration-300">Login</button>
         </form>
 
         <p class="text-center text-sm text-gray-600 mt-4">

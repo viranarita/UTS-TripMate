@@ -2,35 +2,41 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Script berhasil dimuat!");
 
     // FORM LOGIN
-    const loginForm = document.getElementById("loginForm");
-    if (loginForm) {
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("✅ Script login berhasil dimuat!");
+    
+        const loginForm = document.getElementById("loginForm");
+    
+        if (!loginForm) {
+            console.error("❌ Form login tidak ditemukan!");
+            return;
+        }
+    
         loginForm.addEventListener("submit", function (event) {
             event.preventDefault();
-
+    
             const formData = new FormData(loginForm);
+    
             fetch("login.php", {
                 method: "POST",
                 body: formData
             })
             .then(response => response.text())
             .then(data => {
-                console.log("✅ Server Response (Login):", data);
-                if (data.includes("Login berhasil")) {
-                    alert("Login berhasil! Mengalihkan ke dashboard...");
-                    window.location.href = "dashboard.php";
+                if (!data.includes("Login gagal")) {
+                    window.location.href = "dashboard.php"; // Arahkan ke dashboard jika sukses
                 } else {
                     alert("Login gagal: " + data);
                 }
             })
             .catch(error => {
-                console.error("❌ Terjadi kesalahan saat login:", error);
+                console.error("❌ Terjadi kesalahan:", error);
                 alert("Terjadi kesalahan, coba lagi.");
             });
         });
-    } else {
-        console.error("❌ Form login tidak ditemukan!");
-    }
-
+    });    
+    
+  
     // FORM REGISTER
     document.addEventListener("DOMContentLoaded", function () {
         console.log("✅ Script berhasil dimuat!");
