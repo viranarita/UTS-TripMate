@@ -1,50 +1,87 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Script berhasil dimuat!");
 
-    // Navigasi antara index.html dan destination.html
-    document.querySelectorAll('a[href="destination.php"]').forEach(link => {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-            window.location.href = "destination.php";
-        });
-    });
-
-    document.querySelectorAll('a[href="index.php"]').forEach(link => {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-            window.location.href = "index.php";
-        });
-    });
-
     // FORM LOGIN
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
         loginForm.addEventListener("submit", function (event) {
             event.preventDefault();
-            console.log("✅ Login berhasil, mengalihkan ke index.php...");
-            window.location.href = "index.php"; // Arahkan setelah login
+
+            const formData = new FormData(loginForm);
+            fetch("login.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log("✅ Server Response (Login):", data);
+                if (data.includes("Login berhasil")) {
+                    alert("Login berhasil! Mengalihkan ke dashboard...");
+                    window.location.href = "dashboard.php";
+                } else {
+                    alert("Login gagal: " + data);
+                }
+            })
+            .catch(error => {
+                console.error("❌ Terjadi kesalahan saat login:", error);
+                alert("Terjadi kesalahan, coba lagi.");
+            });
         });
     } else {
         console.error("❌ Form login tidak ditemukan!");
     }
 
     // FORM REGISTER
-    const registerForm = document.getElementById("registerForm");
-    if (registerForm) {
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("✅ Script berhasil dimuat!");
+    
+        const registerForm = document.getElementById("registerForm");
+    
+        if (!registerForm) {
+            console.error("❌ Form register tidak ditemukan!");
+            return;
+        }
+    
         registerForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-            console.log("✅ Registrasi berhasil, mengalihkan ke index.php...");
-            window.location.href = "index.php"; // Arahkan setelah daftar
+            event.preventDefault(); // Mencegah reload default
+    
+            const formData = new FormData(registerForm);
+    
+            console.log("📨 Mengirim data ke register.php...");
+    
+            fetch("register.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log("✅ Server Response (Register):", data); // Debugging response
+    
+                if (data.trim() === "success") {
+                    alert("Registrasi berhasil! Mengalihkan ke dashboard...");
+                    window.location.href = "dashboard.php"; // Ke dashboard setelah daftar sukses
+                } else {
+                    alert("Registrasi gagal: " + data);
+                }
+            })
+            .catch(error => {
+                console.error("❌ Terjadi kesalahan:", error);
+                alert("Terjadi kesalahan, coba lagi.");
+            });
         });
-    } else {
-        console.error("❌ Form register tidak ditemukan!");
-    }
+    });
+    
+    
 
-    // Login & Register Page Toggle
+    // Toggle antara Login dan Register Page
     const loginPage = document.getElementById("loginPage");
     const registerPage = document.getElementById("registerPage");
     const showRegisterLinks = document.querySelectorAll("#showRegister");
     const showLogin = document.getElementById("showLogin");
+
+    // Debugging: Pastikan elemen ditemukan
+    console.log("🔍 loginPage:", loginPage);
+    console.log("🔍 registerPage:", registerPage);
 
     const urlParams = new URLSearchParams(window.location.search);
     const page = urlParams.get("page");

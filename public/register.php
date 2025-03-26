@@ -1,34 +1,30 @@
 <?php
-include 'db.php';
+include 'config.php';
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if(isset($_POST["register"])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Enkripsi password
+    $password = $_POST['password'];
+    $hash_password = hash("sha256", $password);
 
-    // Periksa apakah email sudah digunakan
-    $checkEmail = "SELECT email FROM tb_Users WHERE email = ?";
-    $stmt = $conn->prepare($checkEmail);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
+    // Gunakan prepared statement untuk keamanan
+    $sql = $conn->prepare("INSERT INTO tb_users (name, email, password) VALUES (?, ?, ?)");
+    $sql->bind_param("sss", $name, $email, $hash_password);
 
-    if ($stmt->num_rows > 0) {
-        echo json_encode(["status" => "error", "message" => "Email sudah terdaftar"]);
-    } else {
-        // Simpan pengguna baru ke database
-        $insertUser = "INSERT INTO tb_Users (name, email, password) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($insertUser);
-        $stmt->bind_param("sss", $name, $email, $password);
-
-        if ($stmt->execute()) {
-            echo json_encode(["status" => "success", "message" => "Registrasi berhasil, silakan login"]);
+    try {
+        if ($sql->execute()) {
+            echo "success"; // Kirim 'success' kalau berhasil
         } else {
-            echo json_encode(["status" => "error", "message" => "Terjadi kesalahan saat registrasi"]);
+            echo "Daftar akun gagal, silakan coba lagi.";
         }
+    } catch (mysqli_sql_exception $e) {
+        echo "Email sudah dipakai, gunakan email lain.";
     }
 
-    $stmt->close();
+    $sql->close();
     $conn->close();
+} else {
+    echo "Invalid request!";
 }
 ?>
