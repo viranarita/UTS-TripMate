@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
 <body class="bg-gray-100">
+    <h1>halo</h1>
     <header class="bg-white absolute top-0 left-0 w-full flex items-center z-10">
         <div class="container mx-auto flex justify-between items-center">
             <div class="px-4 flex items-center space-x-8">
