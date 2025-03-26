@@ -14,7 +14,14 @@ if(isset($_POST["register"])) {
 
     try {
         if ($sql->execute()) {
-            echo "success"; // Kirim 'success' kalau berhasil
+            // Auto-login setelah berhasil registrasi
+            $_SESSION['is_login'] = true;
+            $_SESSION['user_id'] = $conn->insert_id; // Ambil ID user yang baru dibuat
+            $_SESSION['name'] = $name;
+            $_SESSION['email'] = $email;
+
+            header("Location: index.php");
+            exit();
         } else {
             echo "Daftar akun gagal, silakan coba lagi.";
         }

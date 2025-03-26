@@ -1,0 +1,53 @@
+<!-- Header Section Start -->
+<header class="bg-white absolute top-0 left-0 w-full flex items-center z-10">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo dan Menu -->
+        <div class="px-4 flex items-center space-x-8">
+            <a href="#home" class="font-bold text-lg text-primary py-6">TripMate</a>
+            <nav class="hidden lg:flex space-x-8">
+                <a href="index.php" class="text-base text-dark hover:text-primary">Home</a>
+                <a href="destination.php" class="text-base text-dark hover:text-primary">Destination</a>
+                <a href="planning.php" class="text-base text-dark hover:text-primary">Planning</a>
+            </nav>
+        </div>
+
+        <!-- Tombol Sign In & Register (Hanya di Desktop) -->
+        <?php if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true): ?>
+        <div class="hidden lg:flex items-center space-x-4">
+            <a href="login.php?page=login" class="text-base text-dark hover:text-primary">Sign In</a>
+            <a href="login.php?page=register" class="text-base text-dark py-2 mx-8 lg:mx-4 lg:px-4 lg:py-2 lg:border lg:border-primary lg:rounded-full lg:hover:bg-primary lg:hover:text-white lg:transition lg:duration-300">Create Account</a>
+        </div>
+        <?php else: ?>
+        <div class="hidden lg:flex items-center space-x-4">
+            <form method="POST" action="prosesLogout.php">
+                <button type="submit" name="logout" class="text-base text-dark hover:text-primary">Logout</button>
+            </form>
+        </div>
+        <?php endif; ?>
+
+        <!-- Tombol Hamburger (Hanya di Mobile) -->
+        <button id="hamburger" class="lg:hidden">
+            <span class="hamburger-line origin-top-left transition duration-300 ease-in-out"></span>
+            <span class="hamburger-line transition duration-300 ease-in-out"></span>
+            <span class="hamburger-line origin-bottom-left transition duration-300 ease-in-out"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav id="nav-menu" class="hidden absolute bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:hidden">
+        <ul class="block text-left space-y-4 p-5">
+            <li><a href="index.php" class="text-base text-dark hover:text-primary block">Home</a></li>
+            <li><a href="destination.php" class="text-base text-dark hover:text-primary block">Destination</a></li>
+            <li><a href="planning.php" class="text-base text-dark hover:text-primary block">Planning</a></li>
+            <?php if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true): ?>
+            <li><a href="login.php?page=login" class="text-base text-dark hover:text-primary block">Sign In</a></li>
+            <li><a href="login.php?page=register" class="text-base text-dark hover:text-primary block">Create Account</a></li>
+            <?php else: ?>
+            <li><form method="POST" action="prosesLogout.php">
+                <button type="submit" name="logout" class="text-base text-dark hover:text-primary">Logout</button>
+            </form></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+</header>
+<!-- Header Section End -->

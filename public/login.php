@@ -3,7 +3,7 @@ include "config.php"; // Menggunakan konfigurasi database
 session_start();
 
 if (isset($_SESSION["is_login"])) {
-    header("Location: dashboard.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -23,7 +23,14 @@ if (isset($_POST['login'])) {
         $_SESSION["email"] = $data["email"];
         $_SESSION["is_login"] = true;
 
-        header("Location: dashboard.php"); // Langsung ke dashboard tanpa echo "success"
+        // Cek apakah email adalah admin
+        if ($email === "admin@admin.com") {
+            $_SESSION["is_admin"] = true; // Tandai sebagai admin
+            header("Location: dashboard.php");
+        } else {
+            $_SESSION["is_admin"] = false; // Tandai sebagai user biasa
+            header("Location: index.php");
+        }
         exit();
     } else {
         echo "Login gagal! Periksa email atau password.";
@@ -33,6 +40,7 @@ if (isset($_POST['login'])) {
     $conn->close();
 }
 ?>
+
 
 
 <!DOCTYPE html>
