@@ -13,31 +13,48 @@
     <!-- Sidebar Start -->
     <aside class="bg-white fixed top-0 left-0 h-full w-96 min-w-[384px] shadow-lg flex flex-col z-10">
 
-        <div class="flex flex-col h-full justify-between">
+        <!-- Sidebar Wrapper -->
+        <div class="flex flex-col h-full">
             
             <!-- Logo -->
             <div class="p-7 border-b border-gray-200">
                 <a href="#home" class="font-bold text-lg text-primary">TripMate</a>
             </div>
 
-            <!-- Menu (Akan Mengisi Ruang Tengah) -->
-            <div class="flex-1">
-                <div class="p-7 space-y-3 border-b border-gray-200 center">
+            <!-- Menu (Tetap di Atas) -->
+            <div>
+                <div class="p-7 space-y-3 border-b border-gray-200">
                     <a href="#dashboard" class="text-base text-dark hover:text-primary">Dashboard</a>
                 </div>
-                <div class="p-7 space-y-3 border-b border-gray-200">
-                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Manage Places</a>
+                
+                <div class="flex flex-col px-6 border-b border-gray-200 w-full">
+                    <!-- Tombol utama -->
+                    <button onclick="showMenu1()" class="p-7 text-left text-dark flex justify-between items-center w-full py-5">
+                        <p class="text-base text-dark hover:text-primary">Manage Places</p>
+                        <svg id="icon1" class="transform transition-transform duration-300" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Submenu -->
+                    <div id="menu1" class="hidden flex-col w-full space-y-1 p-7">
+                        <button class="flex justify-start items-center hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2 w-full md:w-52">
+                            <p class="text-base leading-4">Messages</p>
+                        </button>
+                    </div>
                 </div>
+
                 <div class="p-7 space-y-3 border-b border-gray-200">
-                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Manage Transportation</a>
+                    <a href="#manage-transportation" class="text-base text-dark hover:text-primary">Manage Transportation</a>
                 </div>
+                
                 <div class="p-7 space-y-3 border-b border-gray-200">
-                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Manage Packages</a>
+                    <a href="#manage-packages" class="text-base text-dark hover:text-primary">Manage Packages</a>
                 </div>
             </div>
 
             <!-- Logout Nempel di Bawah -->
-            <div class="p-7 border-t border-gray-200">
+            <div class="mt-auto p-7 border-t border-gray-200">
                 <form method="POST" action="prosesLogout.php">
                     <button type="submit" name="logout" class="text-base text-dark hover:text-primary w-full">Logout</button>
                 </form>
@@ -47,7 +64,14 @@
 
     </aside>
 
-
     <!-- Sidebar End -->
 </body>
+<script>
+function showMenu1() {
+    const menu = document.getElementById("menu1");
+    const icon = document.getElementById("icon1");
+    menu.classList.toggle("hidden");
+    icon.classList.toggle("rotate-180");
+}
+</script>
 </html>
