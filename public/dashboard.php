@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
 
-<body class="bg-black">
+<body class="bg-gray-100">
     <!-- Sidebar Start -->
     <aside class="bg-white fixed top-0 left-0 h-full w-96 min-w-[384px] shadow-lg flex flex-col z-10">
 
@@ -22,14 +22,17 @@
 
             <!-- Menu (Akan Mengisi Ruang Tengah) -->
             <div class="flex-1">
-                <div class="p-7 space-y-3 border-b border-gray-200">
-                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Coba Deh</a>
+                <div class="p-7 space-y-3 border-b border-gray-200 center">
+                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Dashboard</a>
                 </div>
                 <div class="p-7 space-y-3 border-b border-gray-200">
-                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Coba Deh</a>
+                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Manage Places</a>
                 </div>
                 <div class="p-7 space-y-3 border-b border-gray-200">
-                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Coba Deh</a>
+                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Manage Transportation</a>
+                </div>
+                <div class="p-7 space-y-3 border-b border-gray-200">
+                    <a href="#dashboard" class="text-base text-dark hover:text-primary">Manage Packages</a>
                 </div>
             </div>
 
