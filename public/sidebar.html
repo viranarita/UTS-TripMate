@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Sidebar Start -->
+<aside class="bg-white fixed top-0 left-0 h-full w-64 shadow-lg flex flex-col z-10">
+    <!-- Logo -->
+    <div class="p-6 border-b border-gray-200">
+        <a href="#home" class="font-bold text-lg text-primary">TripMate</a>
+    </div>
+    
+    <!-- Menu Items -->
+    <nav class="flex-1 p-6">
+        <ul class="space-y-4">
+            <?php if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true): ?>
+                <li><a href="index.php" class="text-base text-dark hover:text-primary block">Home</a></li>
+                <li><a href="destination.php" class="text-base text-dark hover:text-primary block">Destination</a></li>
+                <li><a href="planning.php" class="text-base text-dark hover:text-primary block">Planning</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+    
+    <!-- Authentication Links -->
+    <div class="p-6 border-t border-gray-200">
+        <?php if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true): ?>
+            <a href="login.php?page=login" class="block text-base text-dark hover:text-primary mb-2">Sign In</a>
+            <a href="login.php?page=register" class="block text-base text-dark py-2 px-4 border border-primary rounded-full hover:bg-primary hover:text-white transition duration-300">Create Account</a>
+        <?php else: ?>
+            <form method="POST" action="prosesLogout.php">
+                <button type="submit" name="logout" class="block text-base text-dark hover:text-primary">Logout</button>
+            </form>
+        <?php endif; ?>
+    </div>
+</aside>
+<!-- Sidebar End -->
+
+</body>
+</html>
