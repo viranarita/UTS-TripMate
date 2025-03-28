@@ -770,6 +770,10 @@ video {
   margin-left: 16rem;
 }
 
+.ml-96 {
+  margin-left: 24rem;
+}
+
 .block {
   display: block;
 }
@@ -862,6 +866,10 @@ video {
   width: 75%;
 }
 
+.w-\[calc\(100\%-16rem\)\] {
+  width: calc(100% - 16rem);
+}
+
 .min-w-\[384px\] {
   min-width: 384px;
 }
@@ -937,6 +945,10 @@ video {
   resize: both;
 }
 
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -967,6 +979,10 @@ video {
 
 .gap-5 {
   gap: 1.25rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .space-x-32 > :not([hidden]) ~ :not([hidden]) {
@@ -1015,6 +1031,18 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(16rem * var(--tw-space-x-reverse));
   margin-left: calc(16rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-96 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(24rem * var(--tw-space-x-reverse));
+  margin-left: calc(24rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.75rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .self-end {
@@ -1159,6 +1187,21 @@ video {
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
 }
 
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
+
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity, 1));
+}
+
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
+}
+
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
 }
@@ -1256,6 +1299,11 @@ video {
   padding-bottom: 0.25rem;
 }
 
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
 .pb-12 {
   padding-bottom: 3rem;
 }
@@ -1342,6 +1390,11 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold {
@@ -1631,6 +1684,10 @@ video {
 }
 
 @media (min-width: 768px) {
+  .md\:flex {
+    display: flex;
+  }
+
   .md\:w-1\/2 {
     width: 50%;
   }
