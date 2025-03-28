@@ -1,8 +1,8 @@
 <!-- Sidebar Start -->
-<aside class="bg-white fixed top-0 left-0 h-full w-64 shadow-lg flex flex-col z-10">
+<aside class="bg-white fixed top-0 left-0 h-full w-64 shadow-lg flex-col z-10 hidden lg:flex">
 
     <!-- Sidebar Wrapper -->
-    <div class="flex-col h-full overflow-y-auto hidden md:flex">
+    <div class="flex-col h-full overflow-y-auto hidden lg:flex">
         
         <!-- Logo -->
         <div class="p-7 border-b border-gray-200">
@@ -76,7 +76,7 @@
         </div>
 
         <!-- Logout Nempel di Bawah -->
-        <div class="mt-auto p-7 border-t border-gray-200">
+        <div class="absolute bottom-0 w-full p-7 border-t border-gray-200">
             <form method="POST" action="prosesLogout.php">
                 <button type="submit" name="logout" class="text-base text-dark hover:text-primary w-full">Logout</button>
             </form>
