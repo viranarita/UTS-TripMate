@@ -11,7 +11,7 @@
 
 <body class="bg-gray-100">
     <!-- Sidebar Start -->
-    <aside class="bg-white fixed top-0 left-0 h-full w-96 min-w-[384px] shadow-lg flex flex-col z-10">
+    <aside class="bg-white fixed top-0 left-0 h-full w-64 shadow-lg flex flex-col z-10">
 
         <!-- Sidebar Wrapper -->
         <div class="flex flex-col h-full">
@@ -27,7 +27,7 @@
                     <a href="#dashboard" class="text-base text-dark hover:text-primary">Dashboard</a>
                 </div>
                 
-                <div class="flex flex-col px-6 border-b border-gray-200 w-full">
+                <div class="flex flex-col border-b border-gray-200 w-full">
                     <!-- Tombol utama -->
                     <button onclick="showMenu1()" class="p-7 text-left text-dark flex justify-between items-center w-full py-5">
                         <p class="text-base text-dark hover:text-primary">Manage Places</p>
