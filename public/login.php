@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
         // Cek apakah email adalah admin
         if ($email === "admin@admin.com") {
             $_SESSION["is_admin"] = true; // Tandai sebagai admin
-            header("Location: dashboard.php");
+            header("Location: pageAdmin.php");
         } else {
             $_SESSION["is_admin"] = false; // Tandai sebagai user biasa
             header("Location: index.php");

@@ -14,11 +14,11 @@
     <aside class="bg-white fixed top-0 left-0 h-full w-64 shadow-lg flex flex-col z-10">
 
         <!-- Sidebar Wrapper -->
-        <div class="flex flex-col h-full">
+        <div class="flex flex-col h-full overflow-y-auto">
             
             <!-- Logo -->
             <div class="p-7 border-b border-gray-200">
-                <a href="#home" class="font-bold text-lg text-primary">TripMate</a>
+                <a href="#home" class="font-bold text-2xl text-primary">TripMate</a>
             </div>
 
             <!-- Menu (Tetap di Atas) -->
@@ -97,8 +97,37 @@
         </div>
 
     </aside>
-
     <!-- Sidebar End -->
+
+    <div class="flex justify-center ml-64 mt-4">
+        <div class="bg-white p-4 rounded-lg shadow-md w-3/4">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-red-600 text-white">
+                        <th class="p-2 border">ID</th>
+                        <th class="p-2 border">Nama Hotel</th>
+                        <th class="p-2 border">Kota</th>
+                        <th class="p-2 border">Harga</th>
+                        <th class="p-2 border">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                        <tr class="text-center cursor-pointer" onclick="editHotel('<?= $row['id'] ?>', '<?= addslashes($row['nama']) ?>', '<?= addslashes($row['kota']) ?>', '<?= $row['harga'] ?>')">
+                            <td class="p-2 border"><?= $row['id'] ?></td>
+                            <td class="p-2 border"><?= $row['nama'] ?></td>
+                            <td class="p-2 border"><?= $row['kota'] ?></td>
+                            <td class="p-2 border"><?= $row['harga'] ?></td>
+                            <td class="p-2 border">
+                                <a href="destination.php?hapus=<?= $row['id'] ?>" class="bg-yellow-500 text-white px-2 py-1 rounded">Hapus</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
 <script>
 function showMenu1() {
