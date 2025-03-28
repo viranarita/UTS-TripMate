@@ -882,6 +882,10 @@ video {
   width: 1.5rem;
 }
 
+.w-16 {
+  width: 4rem;
+}
+
 .min-w-\[384px\] {
   min-width: 384px;
 }
@@ -1515,6 +1519,11 @@ video {
 .text-gray-200 {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
 }
 
 .shadow {
