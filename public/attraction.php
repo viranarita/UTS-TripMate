@@ -5,22 +5,22 @@ include 'config.php';
 $pageTitle = "Manage Attractions";
 
 // Auto generate ID
-function generateID() {
-    global $conn;
+// function generateID() {
+//     global $conn;
 
-    // Hitung jumlah total data di tabel
-    $query = "SELECT COUNT(*) as jumlah FROM tb_Attractions";
-    $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_assoc($result);
+//     // Hitung jumlah total data di tabel
+//     $query = "SELECT COUNT(*) as jumlah FROM tb_Attractions";
+//     $result = mysqli_query($conn, $query);
+//     $row = mysqli_fetch_assoc($result);
 
-    // ID baru (jumlah baris + 1)
-    $newId = $row['jumlah'] + 1;
+//     // ID baru (jumlah baris + 1)
+//     $newId = $row['jumlah'] + 1;
 
-    // Format menjadi ATR001, ATR002, ...
-    $formattedId = "ATR" . str_pad($newId, 3, '0', STR_PAD_LEFT);
+//     // Format menjadi ATR001, ATR002, ...
+//     $formattedId = "ATR" . str_pad($newId, 3, '0', STR_PAD_LEFT);
 
-    return $formattedId;
-}
+//     return $formattedId;
+// }
 
 $autoID = generateID();
 
