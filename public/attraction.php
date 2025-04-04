@@ -22,7 +22,7 @@ $pageTitle = "Manage Attractions";
 //     return $formattedId;
 // }
 
-$autoID = generateID();
+// $autoID = generateID();
 
 // Tambah / Update Data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
