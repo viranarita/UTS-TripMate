@@ -20,10 +20,9 @@
                     <div class="text-4xl font-semibold p-2">10</div>
                     <div class="text-sm font-medium text-gray-400 p-2 mt-3">Active Orders</div>
                 </div>
-
-                
             </div>
         </div>
+        <p class="text-gray-400">HALO</p>
     </section>
 
 </body>
