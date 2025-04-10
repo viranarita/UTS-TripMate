@@ -75,11 +75,29 @@ while ($row = $result->fetch_assoc()) {
     <title>Admin | Dashboard</title>
     <link rel="stylesheet" href="style.css"/>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+    @media print {
+        .print\:hidden {
+        display: none !important;
+        }
+        #sidebar,
+        #headerAdmin {
+        display: none !important;
+        }
+    }
+    </style>
 </head>
 
 <body class="bg-gray-100">
+    <div id="sidebar" class="print:hidden">
     <?php include "sidebar.html" ?>
+    </div>
+    
+    <div id="headerAdmin" class="print:hidden">
     <?php include "headerAdmin.html" ?>
+    </div>
+
+    <div id="printArea">
     <section class="pt-24 pb-10 w-full lg:w-[calc(100%-16rem)] lg:ml-64">
         <div class="flex justify-center mt-4 space-x-4">
             <div class="bg-white rounded-lg border border-gray-100 p-6 shadow-md">
@@ -146,45 +164,48 @@ while ($row = $result->fetch_assoc()) {
                         </tr>
                     </thead>
                     <tbody>
-<?php
-$sql = "SELECT 
-            list_name, 
-            departure_date, 
-            return_date, 
-            user_id
-        FROM tb_Itinerary
-        ORDER BY departure_date DESC";
+                        <?php
+                        $sql = "SELECT 
+                                    list_name, 
+                                    departure_date, 
+                                    return_date, 
+                                    user_id
+                                FROM tb_Itinerary
+                                ORDER BY departure_date DESC";
 
-$result = mysqli_query($conn, $sql);
-$today = date('Y-m-d');
+                        $result = mysqli_query($conn, $sql);
+                        $today = date('Y-m-d');
 
-while ($row = mysqli_fetch_assoc($result)) {
-    if ($row['departure_date'] > $today) {
-        $status = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-600">Pending</span>';
-    } elseif ($row['return_date'] < $today) {
-        $status = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">Done</span>';
-    } else {
-        $status = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-500">Proses</span>';
-    }
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            if ($row['departure_date'] > $today) {
+                                $status = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-600">Pending</span>';
+                            } elseif ($row['return_date'] < $today) {
+                                $status = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">Done</span>';
+                            } else {
+                                $status = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-500">Proses</span>';
+                            }
 
-    echo "<tr class='text-center'>";
-    echo "<td class='p-2 border'>{$row['list_name']}</td>";
-    echo "<td class='p-2 border'>{$row['departure_date']}</td>";
-    echo "<td class='p-2 border'>{$row['return_date']}</td>";
-    echo "<td class='p-2 border'>$status</td>";
-    echo "<td class='p-2 border'>{$row['user_id']}</td>";
-    echo "</tr>";
-}
-?>
-</tbody>
-
-
+                            echo "<tr class='text-center'>";
+                            echo "<td class='p-2 border'>{$row['list_name']}</td>";
+                            echo "<td class='p-2 border'>{$row['departure_date']}</td>";
+                            echo "<td class='p-2 border'>{$row['return_date']}</td>";
+                            echo "<td class='p-2 border'>$status</td>";
+                            echo "<td class='p-2 border'>{$row['user_id']}</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                        </tbody>
                 </table>
             </div>
         </div>
     </section>
-
-</body>
+    </div>
+        <div class="pt-10 pb-10 w-full lg:w-[calc(100%-16rem)] lg:ml-64 flex justify-center print:hidden">
+            <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow">
+                🖨️ Print Laporan
+            </button>
+        </div>
+    </body>
 
 <script>
   // Chart 1 Destinasi Favorit
