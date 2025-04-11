@@ -63,8 +63,6 @@ while ($row = $result->fetch_assoc()) {
     $monthLabels[] = $row['month'];
     $monthData[] = (int)$row['total'];
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -77,14 +75,32 @@ while ($row = $result->fetch_assoc()) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
     @media print {
-        .print\:hidden {
-        display: none !important;
+        section {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
-        #sidebar,
-        #headerAdmin {
-        display: none !important;
+
+        .container, 
+        .flex, 
+        .flex-wrap, 
+        .justify-center, 
+        .w-full,
+        #printArea {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
-    }
+
+        .shadow-md, 
+        .shadow-lg {
+            box-shadow: none !important;
+        }
+
+        .rounded-lg {
+            border-radius: 0 !important;
+        }
+        }
     </style>
 </head>
 
@@ -103,25 +119,25 @@ while ($row = $result->fetch_assoc()) {
             <div class="bg-white rounded-lg border border-gray-100 p-6 shadow-md">
                 <div class="flex justify-center">
                     <div class="text-4xl font-semibold p-2"><?php echo $totalUsers; ?></div>
-                    <div class="text-sm font-medium text-gray-400 p-2 mt-3">Total Pengguna Aktif</div>
+                    <div class="text-sm font-medium text-gray-400 print:text-black p-2 mt-3">Total Pengguna Aktif</div>
                 </div>
             </div>
             <div class="bg-white rounded-lg border border-gray-100 p-6 shadow-md">
                 <div class="flex justify-center">
                     <div class="text-4xl font-semibold p-2"><?php echo $totalItinerary; ?></div>
-                    <div class="text-sm font-medium text-gray-400 p-2 mt-3">Total Itinerary Dibuat</div>
+                    <div class="text-sm font-medium text-gray-400 print:text-black p-2 mt-3">Total Itinerary Dibuat</div>
                 </div>
             </div>
             <div class="bg-white rounded-lg border border-gray-100 p-6 shadow-md">
                 <div class="flex justify-center">
                     <div class="text-4xl font-semibold p-2"><?php echo $totalTransport; ?></div>
-                    <div class="text-sm font-medium text-gray-400 p-2 mt-3">Total Transportasi</div>
+                    <div class="text-sm font-medium text-gray-400 print:text-black p-2 mt-3">Total Transportasi</div>
                 </div>
             </div>
             <div class="bg-white rounded-lg border border-gray-100 p-6 shadow-md">
                 <div class="flex justify-center">
                     <div class="text-4xl font-semibold p-2"><?php echo $totalDestination; ?></div>
-                    <div class="text-sm font-medium text-gray-400 p-2 mt-3">Total Destinasi</div>
+                    <div class="text-sm font-medium text-gray-400 print:text-black p-2 mt-3">Total Destinasi</div>
                 </div>
             </div>
         </div>
