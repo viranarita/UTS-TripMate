@@ -1874,6 +1874,10 @@ video {
     margin-top: 0px;
   }
 
+  .lg\:ml-60 {
+    margin-left: 15rem;
+  }
+
   .lg\:flex {
     display: flex;
   }
@@ -1892,6 +1896,14 @@ video {
 
   .lg\:w-\[calc\(100\%-16rem\)\] {
     width: calc(100% - 16rem);
+  }
+
+  .lg\:w-\[calc\(100\%-14rem\)\] {
+    width: calc(100% - 14rem);
+  }
+
+  .lg\:w-\[calc\(100\%-15rem\)\] {
+    width: calc(100% - 15rem);
   }
 
   .lg\:gap-10 {

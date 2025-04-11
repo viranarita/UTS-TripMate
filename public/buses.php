@@ -4,6 +4,27 @@ include 'config.php';
 
 $pageTitle = "Manage Buses";
 
+// Fungsi untuk generate ID otomatis BUS001, BUS002, ...
+function generateID() {
+    global $conn;
+
+    // Ambil ID terbesar saat ini
+    $query = "SELECT MAX(bus_id) as max_id FROM tb_Buses";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $lastId = $row['max_id'];
+
+    if ($lastId) {
+        // Ambil angka dari HTLxxx
+        $num = (int)substr($lastId, 3);
+        $newId = $num + 1;
+    } else {
+        $newId = 1;
+    }
+
+    return "BUS" . str_pad($newId, 3, '0', STR_PAD_LEFT);
+}
+
 // Ambil data dari database
 $result = $conn->query("SELECT * FROM tb_Buses");
 
@@ -25,8 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   WHERE bus_id='$id'";
     } else {
         // Tambah data baru
-        $query = "INSERT INTO tb_Buses (bus_name, bus_class, departure_time, arrival_time, origin, destination, price) 
-                  VALUES ('$bus_name', '$bus_class', '$departure_time', '$arrival_time', '$origin', '$destination', '$price')";
+        $generatedID = generateID();
+        $query = "INSERT INTO tb_Buses (bus_id, bus_name, bus_class, departure_time, arrival_time, origin, destination, price) 
+                  VALUES ('$generatedID', '$bus_name', '$bus_class', '$departure_time', '$arrival_time', '$origin', '$destination', '$price')";
     }
 
     if ($conn->query($query) === TRUE) {
