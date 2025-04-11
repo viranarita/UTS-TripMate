@@ -24,6 +24,7 @@ function generateID() {
 
     return "HTL" . str_pad($newId, 3, '0', STR_PAD_LEFT);
 }
+
 // Ambil ID terbaru untuk ditampilkan di form
 $autoID = generateID();
 

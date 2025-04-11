@@ -4,25 +4,24 @@ include 'config.php';
 
 $pageTitle = "Manage Attractions";
 
-// Auto generate ID
-// function generateID() {
-//     global $conn;
+// Fungsi untuk generate ID otomatis ATR001, ATR002, ...
+function generateAttractionID() {
+    global $conn;
 
-//     // Hitung jumlah total data di tabel
-//     $query = "SELECT COUNT(*) as jumlah FROM tb_Attractions";
-//     $result = mysqli_query($conn, $query);
-//     $row = mysqli_fetch_assoc($result);
+    $query = "SELECT MAX(attraction_id) as max_id FROM tb_Attractions";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $lastId = $row['max_id'];
 
-//     // ID baru (jumlah baris + 1)
-//     $newId = $row['jumlah'] + 1;
+    if ($lastId) {
+        $num = (int)substr($lastId, 3);
+        $newId = $num + 1;
+    } else {
+        $newId = 1;
+    }
 
-//     // Format menjadi ATR001, ATR002, ...
-//     $formattedId = "ATR" . str_pad($newId, 3, '0', STR_PAD_LEFT);
-
-//     return $formattedId;
-// }
-
-// $autoID = generateID();
+    return "ATR" . str_pad($newId, 3, '0', STR_PAD_LEFT);
+}
 
 // Tambah / Update Data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -39,8 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   WHERE attraction_id='$id'";
     } else {
         // Tambah data baru
-        $query = "INSERT INTO tb_Attractions (name, location, price, image_url) 
-                  VALUES ('$name', '$location', '$price', '$image_url')";
+        $generatedID = generateAttractionID();
+        $query = "INSERT INTO tb_Attractions (attraction_id, name, location, price, image_url) 
+                  VALUES ('$generatedID', '$name', '$location', '$price', '$image_url')";
     }
 
     if ($conn->query($query) === TRUE) {

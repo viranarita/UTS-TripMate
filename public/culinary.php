@@ -4,6 +4,25 @@ include 'config.php';
 
 $pageTitle = "Manage Culinaries";
 
+// Fungsi untuk generate ID otomatis CLN001, CLN002, ...
+function generateCulinaryID() {
+    global $conn;
+
+    $query = "SELECT MAX(culinary_id) as max_id FROM tb_Culinary";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $lastId = $row['max_id'];
+
+    if ($lastId) {
+        $num = (int)substr($lastId, 3);
+        $newId = $num + 1;
+    } else {
+        $newId = 1;
+    }
+
+    return "CLN" . str_pad($newId, 3, '0', STR_PAD_LEFT);
+}
+
 // Ambil data dari database
 $result = $conn->query("SELECT * FROM tb_Culinary");
 
@@ -22,8 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   WHERE culinary_id='$id'";
     } else {
         // Tambah data baru
-        $query = "INSERT INTO tb_Culinary (name, location, price_range, image_url) 
-                  VALUES ('$name', '$location', '$price_range', '$image_url')";
+        $generatedID = generateCulinaryID();
+        $query = "INSERT INTO tb_Culinary (culinary_id, name, location, price_range, image_url) 
+                  VALUES ('$generatedID', '$name', '$location', '$price_range', '$image_url')";
     }
 
     if ($conn->query($query) === TRUE) {
