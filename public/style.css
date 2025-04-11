@@ -624,6 +624,10 @@ video {
   visibility: visible;
 }
 
+.collapse {
+  visibility: collapse;
+}
+
 .static {
   position: static;
 }
@@ -690,6 +694,10 @@ video {
 
 .z-20 {
   z-index: 20;
+}
+
+.z-50 {
+  z-index: 50;
 }
 
 .mx-8 {
@@ -852,6 +860,10 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-1 {
+  width: 0.25rem;
 }
 
 .min-w-\[300px\] {
