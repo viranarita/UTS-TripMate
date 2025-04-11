@@ -4,6 +4,27 @@ include 'config.php';
 
 $pageTitle = "Manage Trains";
 
+// Fungsi untuk generate ID otomatis TRN001, TRN002, ...
+function generateID() {
+    global $conn;
+
+    // Ambil ID terbesar saat ini
+    $query = "SELECT MAX(train_id) as max_id FROM tb_Trains";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $lastId = $row['max_id'];
+
+    if ($lastId) {
+        // Ambil angka dari HTLxxx
+        $num = (int)substr($lastId, 3);
+        $newId = $num + 1;
+    } else {
+        $newId = 1;
+    }
+
+    return "TRN" . str_pad($newId, 3, '0', STR_PAD_LEFT);
+}
+
 // Ambil data dari database
 $result = $conn->query("SELECT * FROM tb_Trains");
 
@@ -25,8 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   WHERE train_id='$id'";
     } else {
         // Tambah data baru
-        $query = "INSERT INTO tb_Trains (train_name, train_type, departure_time, arrival_time, origin, destination, price) 
-                  VALUES ('$train_name', '$train_type', '$departure_time', '$arrival_time', '$origin', '$destination', '$price')";
+        $generatedID = generateID();
+        $query = "INSERT INTO tb_Trains (train_id, train_name, train_type, departure_time, arrival_time, origin, destination, price) 
+                  VALUES ('$generatedID', '$train_name', '$train_type', '$departure_time', '$arrival_time', '$origin', '$destination', '$price')";
     }
 
     if ($conn->query($query) === TRUE) {
