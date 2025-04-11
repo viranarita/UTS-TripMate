@@ -65,6 +65,7 @@ $result = $conn->query("SELECT * FROM tb_Itinerary ORDER BY timestamp DESC");
     <div class="container mx-auto flex flex-col lg:flex-row justify-center items-start gap-8 min-h-screen">
         <!-- FORM -->
         <div class="w-full lg:w-1/2 p-8 bg-white rounded-2xl shadow-xl">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Plan Your Trip</h2>
             <form method="POST" action="">
                 <input type="hidden" name="list_id" id="list_id">
                 <div class="grid grid-cols-1 gap-8">
@@ -116,6 +117,7 @@ $result = $conn->query("SELECT * FROM tb_Itinerary ORDER BY timestamp DESC");
 
         <!-- TABEL -->
         <div class="w-full lg:w-1/2 bg-white p-4 rounded-2xl shadow-xl overflow-x-auto">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Your Plan</h2>
             <table class="w-full border-collapse">
                 <thead>
                     <tr class="bg-red-600 text-white">
