@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+include "config.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +13,7 @@
 <body>
     
     <?php include "header.html" ?>
+    
 
     <!-- Hero Section Start -->
     <section id="home" class="pt-20">

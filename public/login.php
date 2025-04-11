@@ -13,13 +13,16 @@ if (isset($_POST['login'])) {
     $hash_password = hash("sha256", $password);
 
     // Gunakan prepared statement untuk keamanan
-    $sql = $conn->prepare("SELECT * FROM tb_users WHERE email = ? AND password = ?");
+    $sql = $conn->prepare("SELECT * FROM tb_Users WHERE email = ? AND password = ?");
     $sql->bind_param("ss", $email, $hash_password);
     $sql->execute();
     $result = $sql->get_result();
 
     if ($result->num_rows > 0) {
         $data = $result->fetch_assoc();
+        
+        $_SESSION["user_id"] = $data["user_id"];
+        $_SESSION["name"] = $data["name"];
         $_SESSION["email"] = $data["email"];
         $_SESSION["is_login"] = true;
 
@@ -40,8 +43,6 @@ if (isset($_POST['login'])) {
     $conn->close();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="id">

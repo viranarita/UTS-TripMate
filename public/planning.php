@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $return_date = $_POST['return_date'];
     $departure_city = $_POST['departure_city'];
     $destination_city = $_POST['destination_city'];
-    $user_id = 1;
 
     if (strtotime($return_date) < strtotime($departure_date)) {
         die("Tanggal kembali harus lebih besar atau sama dengan tanggal keberangkatan.");
