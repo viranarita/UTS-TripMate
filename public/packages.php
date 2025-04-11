@@ -4,6 +4,27 @@ include 'config.php';
 
 $pageTitle = "Manage Packages";
 
+// Fungsi untuk generate ID otomatis PKG001, PKG002, ...
+function generateID() {
+    global $conn;
+
+    // Ambil ID terbesar saat ini
+    $query = "SELECT MAX(package_id) as max_id FROM tb_Packages";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $lastId = $row['max_id'];
+
+    if ($lastId) {
+        // Ambil angka dari HTLxxx
+        $num = (int)substr($lastId, 3);
+        $newId = $num + 1;
+    } else {
+        $newId = 1;
+    }
+
+    return "PKG" . str_pad($newId, 3, '0', STR_PAD_LEFT);
+}
+
 // Ambil data dari database
 $result = $conn->query("SELECT * FROM tb_Packages");
 
@@ -21,8 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   WHERE package_id='$id'";
     } else {
         // Tambah data baru
-        $query = "INSERT INTO tb_Packages (name, details, price) 
-                  VALUES ('$name', '$details', '$price')";
+        $generatedID = generateID();
+        $query = "INSERT INTO tb_Packages (package_id, name, details, price) 
+                  VALUES ('$generatedID', '$name', '$details', '$price')";
     }
 
     if ($conn->query($query) === TRUE) {
