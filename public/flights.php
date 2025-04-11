@@ -4,6 +4,27 @@ include 'config.php';
 
 $pageTitle = "Manage Flights";
 
+// Fungsi untuk generate ID otomatis FLG001, FLG002, ...
+function generateID() {
+    global $conn;
+
+    // Ambil ID terbesar saat ini
+    $query = "SELECT MAX(flight_id) as max_id FROM tb_Flights";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $lastId = $row['max_id'];
+
+    if ($lastId) {
+        // Ambil angka dari HTLxxx
+        $num = (int)substr($lastId, 3);
+        $newId = $num + 1;
+    } else {
+        $newId = 1;
+    }
+
+    return "FLG" . str_pad($newId, 3, '0', STR_PAD_LEFT);
+}
+
 // Ambil data dari database
 $result = $conn->query("SELECT * FROM tb_Flights");
 
@@ -24,8 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   WHERE flight_id='$id'";
     } else {
         // Tambah data baru
-        $query = "INSERT INTO tb_Flights (airline, departure_time, arrival_time, origin, destination, price) 
-                  VALUES ('$airline', '$departure_time', '$arrival_time', '$origin', '$destination', '$price')";
+        $generatedID = generateID();
+        $query = "INSERT INTO tb_Flights (flight_id, airline, departure_time, arrival_time, origin, destination, price) 
+                  VALUES ('$generatedID', '$airline', '$departure_time', '$arrival_time', '$origin', '$destination', '$price')";
     }
 
     if ($conn->query($query) === TRUE) {
