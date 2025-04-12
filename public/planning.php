@@ -11,6 +11,11 @@ if (isset($_GET['hapus'])) {
     exit();
 }
 
+$user_id = $_SESSION['user_id'] ?? null;
+if (!$user_id) {
+    die("User belum login.");
+}
+
 // Simpan / Update data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $list_name = $_POST['list_name'];
@@ -190,6 +195,17 @@ function calculateDays() {
         document.getElementById('trip_days').value = '';
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+             const hamburger = document.getElementById('hamburger');
+             const navMenu = document.getElementById('nav-menu');
+ 
+             if (hamburger && navMenu) {
+                 hamburger.addEventListener('click', function () {
+                     navMenu.classList.toggle('hidden');
+                 });
+             }
+         });
 </script>
 
 </body>
