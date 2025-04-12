@@ -50,8 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 }
 
-// Ambil semua data itinerary
-$result = $conn->query("SELECT * FROM tb_Itinerary ORDER BY timestamp DESC");
+// Ambil data itinerary milik user yang login saja
+$stmt = $conn->prepare("SELECT * FROM tb_Itinerary WHERE user_id = ? ORDER BY timestamp DESC");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
