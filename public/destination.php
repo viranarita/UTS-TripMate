@@ -19,7 +19,7 @@ session_start();
         <div class="absolute inset-0 w-full h-full">
             <img src="img/destination2.jpg" alt="Hero Image" class="w-full h-full object-cover">
         </div>
-        <div class="absolute left-0 right-0 bottom-0 top-20 flex items-center justify-center z-50 bg-black bg-opacity-10">
+        <div class="absolute left-0 right-0 bottom-0 top-20 flex items-center justify-center z-70 bg-black bg-opacity-10">
             <div class="container">
                 <h1 class="font-semibold text-white text-2xl md:text-3xl lg:text-4xl -mt-28">
                     Mau berlibur kemana?
