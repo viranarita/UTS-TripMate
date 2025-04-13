@@ -37,19 +37,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $location = $_POST['location'];
     $price_per_night = $_POST['price_per_night'];
-    $image_url = $_POST['image_url'] ?? null;
+
+    // Proses upload gambar
+    $image_blob = null;
+    if (isset($_FILES['image_url']) && $_FILES['image_url']['error'] == 0) {
+        $image_blob = addslashes(file_get_contents($_FILES['image_url']['tmp_name']));
+    }
 
     if (!empty($id)) {
         // Update Data
-        $query = "UPDATE tb_Hotels 
-                  SET name='$name', location='$location', price_per_night='$price_per_night', image_url='$image_url' 
-                  WHERE hotel_id='$id'";
+        if ($image_blob) {
+            $query = "UPDATE tb_Hotels 
+                      SET name='$name', location='$location', price_per_night='$price_per_night', image_url='$image_blob' 
+                      WHERE hotel_id='$id'";
+        } else {
+            $query = "UPDATE tb_Hotels 
+                      SET name='$name', location='$location', price_per_night='$price_per_night' 
+                      WHERE hotel_id='$id'";
+        }
     } else {
         // Tambah data baru
         $generatedID = generateID();
         $query = "INSERT INTO tb_Hotels (hotel_id, name, location, price_per_night, image_url) 
-                  VALUES ('$generatedID', '$name', '$location', '$price_per_night', '$image_url')";
-    }    
+                  VALUES ('$generatedID', '$name', '$location', '$price_per_night', '$image_blob')";
+    }
 
     if ($conn->query($query) === TRUE) {
         header("Location: hotel.php");
@@ -84,7 +95,7 @@ if (isset($_GET['hapus'])) {
     <section class="pt-24 w-full lg:w-[calc(100%-16rem)] lg:ml-64">
         <div class="flex justify-center mt-4">
             <div class="bg-white p-4 rounded-lg shadow-md w-3/4">
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                     <input type="hidden" name="hotel_id" id="hotelId">
                     <div class="grid grid-cols-1 gap-8">
                         <div>
@@ -100,8 +111,8 @@ if (isset($_GET['hapus'])) {
                             <input type="number" name="price_per_night" id="price_per_night" required class="w-full px-3 py-2 border rounded">
                         </div>
                         <div>
-                            <label class="block text-gray-700">Gambar (URL)</label>
-                            <input type="text" name="image_url" id="image_url" class="w-full px-3 py-2 border rounded">
+                            <label class="block text-gray-700">Gambar (File)</label>
+                            <input type="file" name="image_url" id="image_url" class="w-full px-3 py-2 border rounded">
                         </div>
                     </div>
                     <div class="mt-4 flex justify-between">
@@ -128,14 +139,14 @@ if (isset($_GET['hapus'])) {
                     </thead>
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr class="text-center cursor-pointer" onclick="editHotel('<?= $row['hotel_id'] ?>', '<?= addslashes($row['name']) ?>', '<?= addslashes($row['location']) ?>', '<?= $row['price_per_night'] ?>', '<?= addslashes($row['image_url']) ?>')">
+                        <tr class="text-center cursor-pointer" onclick="editHotel('<?= $row['hotel_id'] ?>', '<?= addslashes($row['name']) ?>', '<?= addslashes($row['location']) ?>', '<?= $row['price_per_night'] ?>')">
                             <td class="p-2 border"><?= $row['hotel_id'] ?></td>
                             <td class="p-2 border"><?= $row['name'] ?></td>
                             <td class="p-2 border"><?= $row['location'] ?></td>
                             <td class="p-2 border"><?= $row['price_per_night'] ?></td>
                             <td class="p-2 border">
                                 <?php if (!empty($row['image_url'])): ?>
-                                    <img src="<?= $row['image_url'] ?>" alt="Gambar" class="w-16 h-16 object-cover">
+                                    <img src="data:image/jpeg;base64,<?= base64_encode($row['image_url']) ?>" alt="Gambar" class="w-16 h-16 object-cover">
                                 <?php else: ?>
                                     <span class="text-gray-500">No Image</span>
                                 <?php endif; ?>
@@ -150,13 +161,13 @@ if (isset($_GET['hapus'])) {
             </div>
         </div>
     </section>
+
     <script>
-    function editHotel(id, name, location, price_per_night, image_url) {
+    function editHotel(id, name, location, price_per_night) {
         document.getElementById("hotelId").value = id;
         document.getElementById("name").value = name;
         document.getElementById("location").value = location;
         document.getElementById("price_per_night").value = price_per_night;
-        document.getElementById("image_url").value = image_url;
 
         document.getElementById("addBtn").classList.add("hidden");
         document.getElementById("updateBtn").classList.remove("hidden");
@@ -172,6 +183,17 @@ if (isset($_GET['hapus'])) {
         document.getElementById("addBtn").classList.remove("hidden");
         document.getElementById("updateBtn").classList.add("hidden");
     }
+
+    document.getElementById("hotelForm").addEventListener("submit", function(e) {
+        const fileInput = document.getElementById("image_url");
+        if (fileInput.files.length > 0) {
+            const fileName = fileInput.files[0].name.toLowerCase();
+            if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg")) {
+                alert("Masukkan file JPG saja.");
+                e.preventDefault(); // Mencegah form dikirim
+            }
+        }
+    });
     </script>
 </body>
 </html>
