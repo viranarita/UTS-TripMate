@@ -23,7 +23,7 @@ include "config.php"; ?>
                     <h2 class="font-medium text-secondary text-lg mb-8 lg:text-xl">Your Trip <span class="text-slate-700 font-style: italic">Soulmate</span></h2>
                     <p class="font-medium text-secondary mb-10 leading-relaxed">New Places Await, Just Tap TripMate!</p>
 
-                    <a href="#" class="text-base font-semibold text-white bg-primary py-3 px-8 rounded-full hover:shadow-lg hover:opacity-80 transition duration-300 ease-in-out">Mulai Planning Trip!</a>
+                    <a href="planning.php" class="text-base font-semibold text-white bg-primary py-3 px-8 rounded-full hover:shadow-lg hover:opacity-80 transition duration-300 ease-in-out">Mulai Planning Trip!</a>
                 </div>
                 <div class="w-full self-end px-4 lg:w-1/2">
                     <div class="relative mt-10 lg:mt-0 lg:right-0">

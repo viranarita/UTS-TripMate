@@ -13,12 +13,9 @@ if (isset($_GET['hapus'])) {
 }
 
 $user_id = $_SESSION['user_id'] ?? null;
-if (!$user_id) {
-    die("User belum login.");
-}
 
 // Simpan / Update data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $user_id) {
     $list_name = $_POST['list_name'];
     $departure_date = $_POST['departure_date'];
     $return_date = $_POST['return_date'];
@@ -52,10 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Ambil data itinerary milik user yang login saja
-$stmt = $conn->prepare("SELECT * FROM tb_Itinerary WHERE user_id = ? ORDER BY timestamp DESC");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
+if ($user_id) {
+    $stmt = $conn->prepare("SELECT * FROM tb_Itinerary WHERE user_id = ? ORDER BY timestamp DESC");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    $result = false;
+}
 
 ?>
 

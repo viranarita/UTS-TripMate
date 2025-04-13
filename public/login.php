@@ -83,7 +83,6 @@ if (isset($_POST['login'])) {
     </div>
 
     <!-- Halaman Register -->
-    <i><?= $register_message ?></i>
     <div id="registerPage" class="hidden bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 class="text-2xl font-bold text-center text-red-600 mb-6 ">Buat Akun TripMate</h2>
         
