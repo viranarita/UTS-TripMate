@@ -29,18 +29,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $location = $_POST['location'];
     $price = $_POST['price'];
-    $image_url = $_POST['image_url'] ?? null;
+
+    // Proses upload gambar
+    $image_blob = null;
+    if (isset($_FILES['image_url']) && $_FILES['image_url']['error'] == 0) {
+        $image_blob = addslashes(file_get_contents($_FILES['image_url']['tmp_name']));
+    }
 
     if (!empty($id)) {
         // Update Data
-        $query = "UPDATE tb_Attractions 
-                  SET name='$name', location='$location', price='$price', image_url='$image_url' 
-                  WHERE attraction_id='$id'";
+        if ($image_blob) {
+            $query = "UPDATE tb_Attractions 
+                      SET name='$name', location='$location', price='$price', image_url='$image_blob' 
+                      WHERE attraction_id='$id'";
+        } else {
+            $query = "UPDATE tb_Attractions 
+                      SET name='$name', location='$location', price='$price' 
+                      WHERE attraction_id='$id'";
+        }
     } else {
         // Tambah data baru
         $generatedID = generateAttractionID();
         $query = "INSERT INTO tb_Attractions (attraction_id, name, location, price, image_url) 
-                  VALUES ('$generatedID', '$name', '$location', '$price', '$image_url')";
+                  VALUES ('$generatedID', '$name', '$location', '$price', '$image_blob')";
     }
 
     if ($conn->query($query) === TRUE) {
@@ -80,7 +91,7 @@ $result = $conn->query("SELECT * FROM tb_Attractions");
     <section class="pt-24 w-full lg:w-[calc(100%-16rem)] lg:ml-64">
         <div class="flex justify-center mt-4">
             <div class="bg-white p-4 rounded-lg shadow-md w-3/4">
-                <form method="POST" action="" enctype="multipart/form-data">
+                <form method="POST" action="" enctype="multipart/form-data" id="attractionForm">
                     <input type="hidden" name="attraction_id" id="attractionId">
                     <div class="grid grid-cols-1 gap-8">
                         <div>
@@ -125,17 +136,18 @@ $result = $conn->query("SELECT * FROM tb_Attractions");
                     </thead>
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr class="text-center cursor-pointer" onclick="editAttraction('<?= $row['attraction_id'] ?>', '<?= addslashes($row['name']) ?>', '<?= addslashes($row['location']) ?>', '<?= $row['price'] ?>', '<?= addslashes($row['image_url']) ?>')">
+                        <tr class="text-center cursor-pointer" onclick="editAttraction('<?= $row['attraction_id'] ?>', '<?= addslashes($row['name']) ?>', '<?= addslashes($row['location']) ?>', '<?= $row['price'] ?>')">
                             <td class="p-2 border"><?= $row['attraction_id'] ?></td>
                             <td class="p-2 border"><?= $row['name'] ?></td>
                             <td class="p-2 border"><?= $row['location'] ?></td>
                             <td class="p-2 border"><?= $row['price'] ?></td>
                             <td class="p-2 border">
-                                <?php if (!empty($row['image_url'])): ?>
-                                    <img src="<?= $row['image_url'] ?>" alt="Gambar" class="w-16 h-16 object-cover">
-                                <?php else: ?>
-                                    <span class="text-gray-500">No Image</span>
-                                <?php endif; ?>
+                            <?php if (!empty($row['image_url'])): ?>
+                                <img src="data:image/jpeg;base64,<?= base64_encode($row['image_url']) ?>" alt="Gambar" class="w-16 h-16 object-cover">
+                            <?php else: ?>
+                                <span class="text-gray-500">No Image</span>
+                            <?php endif; ?>
+
                             </td>
                             <td class="p-2 border">
                                 <a href="attraction.php?hapus=<?= $row['attraction_id'] ?>" class="bg-yellow-500 text-white px-2 py-1 rounded">Hapus</a>
@@ -149,15 +161,14 @@ $result = $conn->query("SELECT * FROM tb_Attractions");
     </section>
 
     <script>
-    function editAttraction(id, name, location, price, image_url) {
-        document.getElementById("attractionId").value = id;
-        document.getElementById("name").value = name;
-        document.getElementById("location").value = location;
-        document.getElementById("price").value = price;
-        document.getElementById("image_url").value = image_url;
+    function editAttraction(id, name, location, price) {
+    document.getElementById("attractionId").value = id;
+    document.getElementById("name").value = name;
+    document.getElementById("location").value = location;
+    document.getElementById("price").value = price;
 
-        document.getElementById("addBtn").classList.add("hidden");
-        document.getElementById("updateBtn").classList.remove("hidden");
+    document.getElementById("addBtn").classList.add("hidden");
+    document.getElementById("updateBtn").classList.remove("hidden");
     }
 
     function resetForm() {
@@ -170,6 +181,17 @@ $result = $conn->query("SELECT * FROM tb_Attractions");
         document.getElementById("addBtn").classList.remove("hidden");
         document.getElementById("updateBtn").classList.add("hidden");
     }
+    
+    document.getElementById("attractionForm").addEventListener("submit", function(e) {
+        const fileInput = document.getElementById("image_url");
+        if (fileInput.files.length > 0) {
+            const fileName = fileInput.files[0].name.toLowerCase();
+            if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg")) {
+                alert("Masukkan file JPG saja.");
+                e.preventDefault(); // Mencegah form dikirim
+            }
+        }
+    });
     </script>
 
 </body>
