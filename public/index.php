@@ -48,20 +48,54 @@ include "config.php"; ?>
                 <div class="w-full px-4 mb-10">
                     <h4 class="font-bold uppercase text-primary text-lg mb-3">Tentang TripMate</h4>
                     <h2 class="font-bold text-dark text-3xl mb-5 max-w-xl">Yuk, kenalan sama TripMate!</h2>
-                    <p class="font-medium text-base text-secondary">
-                        TripMate adalah platform perjalanan yang memudahkan perencanaan, pemesanan, dan eksplorasi destinasi dengan cara yang praktis dan aman. Dengan fitur cerdas dan rekomendasi personal, TripMate membantu pengguna menemukan akomodasi, transportasi, dan aktivitas terbaik, menjadikan setiap perjalanan lebih lancar dan berkesan.
+                    <p class="font-medium text-base text-secondary mb-5">
+                        Selamat datang di TripMate, sahabat terbaikmu dalam merencanakan dan menikmati perjalanan!
+                        Kami hadir sebagai platform perjalanan pintar yang dirancang untuk mempermudah setiap langkah perjalananmu—mulai dari merancang itinerary, mencari penginapan, memesan transportasi, hingga menemukan aktivitas seru di destinasi pilihanmu.
                     </p>
+                    <h2 class="font-bold text-dark text-3xl mb-5 max-w-xl">Visi Kami – Liburan Tanpa Ribet</h2>
+                    <p class="font-medium text-base text-secondary mb-5">
+                        Di TripMate, kami percaya bahwa setiap orang berhak mendapatkan pengalaman liburan yang menyenangkan tanpa ribet.
+                        Kami menghadirkan solusi yang lengkap dan terintegrasi agar kamu bisa fokus menikmati perjalanan, bukan repot dengan detail perencanaannya.
+                    </p>
+                    <h2 class="font-bold text-dark text-3xl mb-5 max-w-xl">Fitur Unggulan</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                        <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center">
+                            <h3 class="text-5xl mb-2">🛏️</h3>
+                            <h3 class="text-xl font-semibold text-primary mb-2">Akomodasi</h3>
+                            <p class="text-secondary text-base text-small">
+                                Temukan dan pesan penginapan serta transportasi terbaik dalam satu platform.
+                            </p>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center">
+                            <h3 class="text-5xl mb-2">🚗</h3>
+                            <h3 class="text-xl font-semibold text-primary mb-2">Transportasi</h3>
+                            <p class="text-secondary text-base text-small">
+                                Nikmati berbagai pilihan kendaraan lokal, antar kota, hingga layanan antar-jemput bandara yang praktis dan nyaman.
+                            </p>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center">
+                            <h3 class="text-5xl mb-2">🎯</h3>
+                            <h3 class="text-xl font-semibold text-primary mb-2">Aktivitas</h3>
+                            <p class="text-secondary text-base text-small">
+                                Jelajahi rekomendasi tempat wisata berdasarkan minatmu—apakah itu petualangan alam, wisata budaya, atau city tour.
+                            </p>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center">
+                            <h3 class="text-5xl mb-2">🍜</h3>
+                            <h3 class="text-xl font-semibold text-primary mb-2">Kuliner</h3>
+                            <p class="text-secondary text-base text-small">
+                                Temukan tempat makan legendaris, hidden gem kuliner, dan jajanan khas daerah yang wajib kamu coba di setiap kota.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
-                <!-- <div class="w-full px-4">
-                    <h3 class="font-bold text-dark text-3xl mb-3">Temukan TripMate</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae in eaque, molestiae consectetur placeat recusandae laborum.</p>
-                </div> -->
             </div>
         </div>
      </section>
     <!-- About Section End -->
 
-    <!-- Chart Section Start -->
+    <!-- Chart Section Start
     <section id="chart" class="pt-12 pb-12">
         <div class="container">
             <div class="flex flex-wrap justify-center">
@@ -73,7 +107,7 @@ include "config.php"; ?>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 <!-- Tambahkan Library Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
