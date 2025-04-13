@@ -58,7 +58,7 @@ include "config.php"; ?>
                         Kami menghadirkan solusi yang lengkap dan terintegrasi agar kamu bisa fokus menikmati perjalanan, bukan repot dengan detail perencanaannya.
                     </p>
                     <h2 class="font-bold text-dark text-3xl mb-5 max-w-xl">Fitur Unggulan</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                    <div class="grid md:grid-cols-4 gap-6 mt-10">
                         <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center">
                             <h3 class="text-5xl mb-2">🛏️</h3>
                             <h3 class="text-xl font-semibold text-primary mb-2">Akomodasi</h3>
