@@ -80,7 +80,7 @@ $result = $conn->query("SELECT * FROM tb_Attractions");
     <section class="pt-24 w-full lg:w-[calc(100%-16rem)] lg:ml-64">
         <div class="flex justify-center mt-4">
             <div class="bg-white p-4 rounded-lg shadow-md w-3/4">
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                     <input type="hidden" name="attraction_id" id="attractionId">
                     <div class="grid grid-cols-1 gap-8">
                         <div>
@@ -97,7 +97,7 @@ $result = $conn->query("SELECT * FROM tb_Attractions");
                         </div>
                         <div>
                             <label class="block text-gray-700">Gambar (URL)</label>
-                            <input type="text" name="image_url" id="image_url" class="w-full px-3 py-2 border rounded">
+                            <input type="file" name="image_url" id="image_url" class="w-full px-3 py-2 border rounded">
                         </div>
                     </div>
                     <div class="mt-4 flex justify-between">
