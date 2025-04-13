@@ -4,46 +4,44 @@ include 'config.php';
 
 $pageTitle = "Manage Culinaries";
 
-// Fungsi untuk generate ID otomatis CLN001, CLN002, ...
 function generateCulinaryID() {
     global $conn;
-
     $query = "SELECT MAX(culinary_id) as max_id FROM tb_Culinary";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($result);
     $lastId = $row['max_id'];
 
-    if ($lastId) {
-        $num = (int)substr($lastId, 3);
-        $newId = $num + 1;
-    } else {
-        $newId = 1;
-    }
-
+    $newId = $lastId ? ((int)substr($lastId, 3)) + 1 : 1;
     return "CLN" . str_pad($newId, 3, '0', STR_PAD_LEFT);
 }
 
-// Ambil data dari database
-$result = $conn->query("SELECT * FROM tb_Culinary");
-
-// Tambah / Update Data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['culinary_id'] ?? null;
     $name = $_POST['name'];
     $location = $_POST['location'];
     $price_range = $_POST['price_range'];
-    $image_url = $_POST['image_url'] ?? null;
+
+    $image_blob = null;
+    if (isset($_FILES['image_url']) && $_FILES['image_url']['error'] == 0) {
+        $image_blob = addslashes(file_get_contents($_FILES['image_url']['tmp_name']));
+    }
 
     if (!empty($id)) {
-        // Update Data
-        $query = "UPDATE tb_Culinary 
-                  SET name='$name', location='$location', price_range='$price_range', image_url='$image_url' 
-                  WHERE culinary_id='$id'";
+        // Update
+        if ($image_blob) {
+            $query = "UPDATE tb_Culinary 
+                      SET name='$name', location='$location', price_range='$price_range', image_url='$image_blob' 
+                      WHERE culinary_id='$id'";
+        } else {
+            $query = "UPDATE tb_Culinary 
+                      SET name='$name', location='$location', price_range='$price_range' 
+                      WHERE culinary_id='$id'";
+        }
     } else {
-        // Tambah data baru
+        // Tambah
         $generatedID = generateCulinaryID();
         $query = "INSERT INTO tb_Culinary (culinary_id, name, location, price_range, image_url) 
-                  VALUES ('$generatedID', '$name', '$location', '$price_range', '$image_url')";
+                  VALUES ('$generatedID', '$name', '$location', '$price_range', '$image_blob')";
     }
 
     if ($conn->query($query) === TRUE) {
@@ -54,13 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Hapus Data
 if (isset($_GET['hapus'])) {
     $id = $_GET['hapus'];
     $conn->query("DELETE FROM tb_Culinary WHERE culinary_id='$id'");
     header("Location: culinary.php");
     exit();
 }
+
+$result = $conn->query("SELECT * FROM tb_Culinary");
 ?>
 
 <!DOCTYPE html>
@@ -79,7 +78,7 @@ if (isset($_GET['hapus'])) {
     <section class="pt-24 w-full lg:w-[calc(100%-16rem)] lg:ml-64">
         <div class="flex justify-center mt-4">
             <div class="bg-white p-4 rounded-lg shadow-md w-3/4">
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data" id="culinaryForm">
                     <input type="hidden" name="culinary_id" id="culinaryId">
                     <div class="grid grid-cols-1 gap-8">
                         <div>
@@ -99,8 +98,8 @@ if (isset($_GET['hapus'])) {
                             </select>
                         </div>
                         <div>
-                            <label class="block text-gray-700">Gambar (URL)</label>
-                            <input type="text" name="image_url" id="image_url" class="w-full px-3 py-2 border rounded">
+                            <label class="block text-gray-700">Gambar (JPG)</label>
+                            <input type="file" name="image_url" id="image_url" accept=".jpg,.jpeg" class="w-full px-3 py-2 border rounded">
                         </div>
                     </div>
                     <div class="mt-4 flex justify-between">
@@ -127,14 +126,14 @@ if (isset($_GET['hapus'])) {
                     </thead>
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr class="text-center cursor-pointer" onclick="editCulinary('<?= $row['culinary_id'] ?>', '<?= addslashes($row['name']) ?>', '<?= addslashes($row['location']) ?>', '<?= $row['price_range'] ?>', '<?= addslashes($row['image_url']) ?>')">
+                        <tr class="text-center cursor-pointer" onclick="editCulinary('<?= $row['culinary_id'] ?>', '<?= addslashes($row['name']) ?>', '<?= addslashes($row['location']) ?>', '<?= $row['price_range'] ?>')">
                             <td class="p-2 border"><?= $row['culinary_id'] ?></td>
                             <td class="p-2 border"><?= $row['name'] ?></td>
                             <td class="p-2 border"><?= $row['location'] ?></td>
                             <td class="p-2 border"><?= $row['price_range'] ?></td>
                             <td class="p-2 border">
                                 <?php if (!empty($row['image_url'])): ?>
-                                    <img src="<?= $row['image_url'] ?>" alt="Gambar" class="w-16 h-16 object-cover">
+                                    <img src="data:image/jpeg;base64,<?= base64_encode($row['image_url']) ?>" alt="Gambar" class="w-16 h-16 object-cover">
                                 <?php else: ?>
                                     <span class="text-gray-500">No Image</span>
                                 <?php endif; ?>
@@ -151,12 +150,11 @@ if (isset($_GET['hapus'])) {
     </section>
 
     <script>
-    function editCulinary(id, name, location, price_range, image_url) {
+    function editCulinary(id, name, location, price_range) {
         document.getElementById("culinaryId").value = id;
         document.getElementById("name").value = name;
         document.getElementById("location").value = location;
         document.getElementById("price_range").value = price_range;
-        document.getElementById("image_url").value = image_url;
 
         document.getElementById("addBtn").classList.add("hidden");
         document.getElementById("updateBtn").classList.remove("hidden");
@@ -172,6 +170,17 @@ if (isset($_GET['hapus'])) {
         document.getElementById("addBtn").classList.remove("hidden");
         document.getElementById("updateBtn").classList.add("hidden");
     }
+
+    document.getElementById("culinaryForm").addEventListener("submit", function(e) {
+        const fileInput = document.getElementById("image_url");
+        if (fileInput.files.length > 0) {
+            const fileName = fileInput.files[0].name.toLowerCase();
+            if (!fileName.endsWith(".jpg") && !fileName.endsWith(".jpeg")) {
+                alert("Masukkan file JPG saja.");
+                e.preventDefault();
+            }
+        }
+    });
     </script>
 </body>
 </html>
