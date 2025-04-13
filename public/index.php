@@ -13,7 +13,6 @@ include "config.php"; ?>
 <body>
     
     <?php include "header.html" ?>
-    
 
     <!-- Hero Section Start -->
     <section id="home" class="pt-20">
