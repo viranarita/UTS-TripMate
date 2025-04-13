@@ -21,11 +21,13 @@
         </div>
         <?php else: ?>
         <div class="hidden lg:flex items-center space-x-4">
+            <span class="inline-block text-base text-white py-2 mx-8 lg:mx-4 lg:px-4 lg:py-2 lg:border lg:border-primary lg:rounded-full bg-primary">Hai, <?= htmlspecialchars($_SESSION["name"]) ?> 👋</span>
             <form method="POST" action="prosesLogout.php">
                 <button type="submit" name="logout" class="text-base text-dark hover:text-primary">Logout</button>
             </form>
         </div>
         <?php endif; ?>
+
 
         <!-- Tombol Hamburger (Hanya di Mobile) -->
         <button id="hamburger" class="lg:hidden">
