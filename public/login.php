@@ -74,6 +74,11 @@ if (isset($_POST['login'])) {
                 <input type="password" id="password" class="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="Masukkan password" name="password" required>
             </div>
 
+            <div class="mb-4 flex items-center">
+                <input type="checkbox" id="showPassword" class="mr-2">
+                <label for="showPassword" class="text-sm text-gray-700"> Tampilkan Password</label>
+            </div>
+
             <button type="submit" name="login" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 font-semibold transition duration-300">Login</button>
         </form>
 
@@ -107,6 +112,11 @@ if (isset($_POST['login'])) {
                 <input type="password" name="confirm_password" id="confirmPassword" class="w-full px-4 py-2 border rounded-lg" placeholder="Ulangi password" required>
             </div>
 
+            <div class="mb-4 flex items-center">
+                <input type="checkbox" id="showPassword" class="mr-2">
+                <label for="showPassword" class="text-sm text-gray-700"> Tampilkan Password</label>
+            </div>
+
             <button type="submit" name="register" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 font-semibold transition duration-300">
                 Daftar
             </button>
@@ -119,6 +129,27 @@ if (isset($_POST['login'])) {
     </div>
 
     <script src="js/script.js"></script>
+    <script>
+        document.getElementById("showPassword").addEventListener("change", function () {
+            const passwordField = document.getElementById("password");
+            if (this.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        });
+    </script>
+    <script>
+        document.getElementById("showPassword").addEventListener("change", function () {
+            const passwordField = document.getElementById("newPassword");
+            const confirmPasswordField = document.getElementById("confirmPassword");
+            
+            const type = this.checked ? "text" : "password";
+            passwordField.type = type;
+            confirmPasswordField.type = type;
+        });
+    </script>
+
 
 </body>
 </html>
