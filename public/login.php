@@ -157,6 +157,19 @@ if (isset($_POST['login'])) {
         });
     </script>
 
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+            var password = document.getElementById("newPassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                alert("Password dan konfirmasi password tidak cocok.");
+            }
+        });
+    </script>
+
+
 
 </body>
 </html>

@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             var confirmPassword = document.getElementById("confirmPassword").value;
 
             if (password !== confirmPassword) {
-                event.preventDefault(); // Mencegah form untuk disubmit
+                event.preventDefault();
                 alert("Password dan konfirmasi password tidak cocok.");
             }
         });
