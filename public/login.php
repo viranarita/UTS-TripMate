@@ -118,7 +118,7 @@ if (isset($_POST['login'])) {
                 <input type="password" name="confirm_password" id="confirmPassword" class="w-full px-4 py-2 border rounded-lg" placeholder="Ulangi password" required>
             </div>
 
-            <div class="mb-4 flex items-center">
+            <div class="mb-4">
                 <input type="checkbox" id="showPassword" class="mr-2">
                 <label for="showPassword" class="text-sm text-gray-700"> Tampilkan Password</label>
             </div>

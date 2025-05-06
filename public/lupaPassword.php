@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Di tahap ini kamu bisa generate token dan simpan di DB
 
         // Redirect ke halaman sukses atau tampilkan pesan
-        echo "<script>alert('Link reset akan dikirim ke email Anda (fitur ini belum diaktifkan).'); window.location.href = 'login.php';</script>";
+        echo "<script>alert('Link reset akan dikirim ke email Anda'); window.location.href = 'resetpassword.php';</script>";
     } else {
         echo "<script>alert('Email tidak ditemukan.'); window.location.href = 'lupaPassword.php';</script>";
     }
@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $conn->close();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="id">
