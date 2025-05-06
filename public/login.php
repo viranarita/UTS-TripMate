@@ -74,9 +74,14 @@ if (isset($_POST['login'])) {
                 <input type="password" id="password" class="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500" placeholder="Masukkan password" name="password" required>
             </div>
 
-            <div class="mb-4 flex items-center">
-                <input type="checkbox" id="showPassword" class="mr-2">
-                <label for="showPassword" class="text-sm text-gray-700"> Tampilkan Password</label>
+            <div class="mb-4 flex justify-between items-center">
+                <div class="flex items-center">
+                    <input type="checkbox" id="showPassword" class="mr-2">
+                    <label for="showPassword" class="text-sm text-gray-700"> Tampilkan Password</label>
+                </div>
+
+                <a href="lupaPassword.php" class="text-sm text-red-600 hover:text-red-700
+                font-semibold hover:underline">Lupa Password?</a>
             </div>
 
             <button type="submit" name="login" class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 font-semibold transition duration-300">Login</button>
@@ -85,6 +90,7 @@ if (isset($_POST['login'])) {
         <p class="text-center text-sm text-gray-600 mt-4">
             Belum punya akun? <a href="#" id="showRegister" class="text-red-600 hover:text-red-700 font-semibold">Buat Akun Baru</a>
         </p>
+
     </div>
 
     <!-- Halaman Register -->
@@ -126,6 +132,7 @@ if (isset($_POST['login'])) {
         <p class="text-center text-sm text-gray-600 mt-4">
             Sudah punya akun? <a href="#" id="showLogin" class="text-red-600 hover:text-red-700 font-semibold">Login</a>
         </p>
+
     </div>
 
     <script src="js/script.js"></script>
