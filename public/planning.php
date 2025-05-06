@@ -3,6 +3,7 @@
 session_start();
 include 'config.php';
 
+$activePage = 'planning';
 
 // Hapus data
 if (isset($_GET['hapus'])) {

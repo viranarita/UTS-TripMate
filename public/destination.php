@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+$activePage = 'destination';
 ?>
 
 <!DOCTYPE html>

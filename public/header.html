@@ -6,9 +6,9 @@
             <a href="#home" class="font-bold text-lg text-primary py-6">TripMate</a>
             <?php if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true): ?>
             <nav class="hidden lg:flex space-x-8">
-                <a href="index.php" class="text-base text-dark hover:text-primary">Home</a>
-                <a href="destination.php" class="text-base text-dark hover:text-primary">Destination</a>
-                <a href="planning.php" class="text-base text-dark hover:text-primary">Planning</a>
+                <a href="index.php" class="text-base <?= ($activePage === 'home') ? 'text-primary font-semibold' : 'text-dark hover:text-primary' ?>">Home</a>
+                <a href="destination.php" class="text-base <?= ($activePage === 'destination') ? 'text-primary font-semibold' : 'text-dark hover:text-primary' ?>">Destination</a>
+                <a href="planning.php" class="text-base <?= ($activePage === 'planning') ? 'text-primary font-semibold' : 'text-dark hover:text-primary' ?>">Planning</a>
             </nav>
             <?php endif; ?>
         </div>
@@ -41,9 +41,9 @@
     <nav id="nav-menu" class="hidden absolute bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:hidden">
         <ul class="block text-left space-y-4 p-5">
             <?php if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true): ?>
-            <li><a href="index.php" class="text-base text-dark hover:text-primary block">Home</a></li>
-            <li><a href="destination.php" class="text-base text-dark hover:text-primary block">Destination</a></li>
-            <li><a href="planning.php" class="text-base text-dark hover:text-primary block">Planning</a></li>
+            <li><a href="index.php" class="text-base <?= ($activePage === 'home') ? 'text-primary font-semibold' : 'text-dark hover:text-primary' ?>">Home</a></li>
+            <li><a href="destination.php" class="text-base <?= ($activePage === 'destination') ? 'text-primary font-semibold' : 'text-dark hover:text-primary' ?>">Destination</a></li>
+            <li><a href="planning.php" class="text-base <?= ($activePage === 'planning') ? 'text-primary font-semibold' : 'text-dark hover:text-primary' ?>">Planning</a></li>
             <?php endif; ?>
             <?php if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true): ?>
             <li><a href="login.php?page=login" class="text-base text-dark hover:text-primary block">Sign In</a></li>

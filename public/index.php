@@ -1,5 +1,7 @@
 <?php session_start();
-include "config.php"; ?>
+include "config.php"; 
+
+$activePage = 'home';?>
 
 <!DOCTYPE html>
 <html lang="en">
